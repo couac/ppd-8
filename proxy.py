@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from bottle import route, response, run, static_file
+from bottle import route, response, run, static_file, post
 from json import dumps
 
 @route('/meta/:query')
@@ -20,6 +20,10 @@ def meta(query):
       'auteur': auteur})
   response.content_type = 'application/json'
   return dumps(parsed)
+
+@post('/text/:ident')
+def text(ident):
+  pass
 
 @route('/:fichier')
 def recherche(fichier):
