@@ -1,33 +1,30 @@
-import requests
-from bs4 import BeautifulSoup
-from bottle import route, response, run, static_file, post
-from json import dumps
+from bottle import route, redirect, static_file, run
+
+@route('/')
+def index():
+  redirect('/rechercher.html')
+
+@route('/:fichier')
+def static(fichier):
+  return static_file(fichier, root='static')
+
+from gutenberg import meta as g_meta
+from manybooks import meta as m_meta
 
 @route('/meta/:query')
 def meta(query):
-  r = requests.get('http://www.gutenberg.org/ebooks/search/',
-    params={'query': query},
-    headers={'User-Agent': 'Mozilla/5.0'})
-  soup = BeautifulSoup(r.text)
-  results = soup.find_all('li', {'class': 'booklink'})
-  parsed = []
-  for elem in results:
-    auteur = elem.find('span', {'class': 'subtitle'})
-    if auteur is not None:
-      auteur = auteur.string
-    parsed.append({
-      'titre': elem.find('span', {'class': 'title'}).string,
-      'auteur': auteur})
-  response.content_type = 'application/json'
-  return dumps(parsed)
+  reply = {}
+  reply['gutenberg'] = g_meta(query)
+  reply['manybooks'] = m_meta(query)
+  return reply
 
-@post('/text/:ident')
-def text(ident):
-  pass
+from gutenberg import meta as g_text
+from manybooks import meta as m_text
 
-@route('/:fichier')
-def recherche(fichier):
-  return static_file(fichier, root='static')
+@route('/text/:source/:ident')
+def text(source, ident):
+  return {'gutenberg': g_text,
+          'manybooks': m_text}[source](ident)
 
 if __name__ == '__main__':
   run(host='localhost', port=8080, debug=True, reloader=True)

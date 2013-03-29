@@ -1,16 +1,25 @@
 function rechercher(recherche) {
-  $.getJSON('/meta/' + recherche, function(data) {
-    var items = []
-    $.each(data, function(index, value) {
-      var elem = '<li><span class="titre">' + value.titre + '</span><br>'
-      if (value.auteur !== null)
-        elem += value.auteur
-      items.push(elem + '</li>')
+  $.getJSON('/meta/' + recherche, function (data) {
+    $('#results').empty()
+    $.each(data, function (key, value) {
+      var items = []
+      $.each(value, function (index, value) {
+        var elem = '<tr><td><span class="titre">' + value.titre + '</span><br>'
+        if (value.auteur !== null)
+          elem += '<span class="auteur">' + value.auteur + '</span><br>'
+        elem += '</td>' +
+          '<td>' +
+            '<a href="/text/' + key + '/' + value.ident + '">' +
+              '<div class="importer"></div>' +
+            '</a>' +
+          '</td>'
+        items.push(elem + '</tr>')
+      })
+      if (items.length > 0)
+        $('<table/>', {html: items.join('\n')}).appendTo('#results')
+      else
+        $('<p/>', {html: 'Aucun résultat trouvé.'}).appendTo('#results')
     })
-    if (items.length > 0)
-      $('#results').html($('<ul/>', {html: items.join('\n')}))
-    else
-      $('#results').html('<p>Aucun résultat trouvé.</p>')
   })
 }
 
@@ -19,7 +28,7 @@ $(function () {
     var recherche = $('#barre').val()
     if (recherche.length > 0) {
       rechercher(recherche)
-      $('#results').html('<p>Recherche en cours...</p>')
+      $('#results').html($('<p/>', {html: 'Recherche en cours...'}))
     }
     return false
   })

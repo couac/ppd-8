@@ -1,4 +1,23 @@
 .titre {
   font-weight: bold;
   text-decoration: underline;
+  color: rgb(55, 55, 55);
+}
+
+.auteur {
+  color: rgb(121, 121, 121);
+}
+
+.importer {
+  background: url('image.png');
+  width: 27px;
+  height: 27px;
+}
+
+.importer:hover {
+  background: url('hover.png');
+}
+
+#results {
+  background-color: rgb(246, 246, 246);
 }
