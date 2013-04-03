@@ -18,8 +18,8 @@ def meta(query):
   reply['manybooks'] = m_meta(query)
   return reply
 
-from gutenberg import meta as g_text
-from manybooks import meta as m_text
+from gutenberg import text as g_text
+from manybooks import text as m_text
 
 @route('/text/:source/:ident')
 def text(source, ident):

@@ -28,7 +28,7 @@ def text(ident):
   if not g.ok:
     s['reason'] = 'source http status error'
     return s
-  p = requests.post('http://staging.tlhub.af83.com/api/documents/', g.text)
+  p = requests.post('http://staging.tlhub.af83.com/api/documents/', dict(document=g.text))
   if not p.ok:
     s['reason'] = 'api http status error'
     return s
