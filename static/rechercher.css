@@ -9,13 +9,13 @@
 }
 
 .importer {
-  background: url('image.png');
+  background: url('import.png');
   width: 27px;
   height: 27px;
 }
 
 .importer:hover {
-  background: url('hover.png');
+  background: url('import2.png');
 }
 
 #results {
