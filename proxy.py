@@ -16,7 +16,9 @@ sources = {
 @route('/meta/:source/:query')
 def meta(source, query):
   if source in sources:
-    return {'results': sources[source].meta(query)}
+    return {
+      'source': source[0].capitalize() + source[1:],
+      'results': sources[source].meta(query)}
 
 @route('/text/:source/:ident')
 def text(source, ident):
