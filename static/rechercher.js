@@ -2,21 +2,20 @@ function search(source, query) {
   $.getJSON('/meta/' + source + '/' + query, function (data) {
     var items = []
     $.each(data.results, function (index, value) {
-      var elem = '<tr><td><span class="titre">' + value.titre + '</span><br>'
+      var elem = '<article>' +
+        '<h2 class="titre">' + value.titre + '</h2>'
       if (value.auteur !== null)
-        elem += '<span class="auteur">' + value.auteur + '</span><br>'
-      elem += '</td>' +
-        '<td>' +
-          '<a href="/text/' + source + '/' + value.ident + '">' +
-            '<div class="importer"></div>' +
-          '</a>' +
-        '</td>'
-      items.push(elem + '</tr>')
+        elem += '<p class="auteur">' + value.auteur + '</p>'
+      elem += '<aside>' +
+        '<a href="/text/' + source + '/' + value.ident + '">' +
+          '<div class="importer"></div>' +
+        '</a>'
+      items.push(elem + '</aside></article>')
     })
     if (items.length > 0)
-      $('#' + source).html($('<table/>', {html: items.join('\n')}))
+      $('#' + source).html(items.join('\n'))
     else
-      $('#' + source).html($('<p/>', {html: 'Nothing found :-('}))
+      $('#' + source).html('<p>Nothing found :-(</p>')
   })
 }
 
@@ -24,10 +23,10 @@ $(function () {
   $('form').submit(function () {
     var query = $('#barre').val()
     if (query.length > 0) {
-      $('#results').html('<table><tr></tr></table>')
+      $('#results').empty()
       $('form > input[type="checkbox"]:checked').each(function () {
         source = $(this).attr('name')
-        $('#results > table tr:first-child').append('<td id="' + source + '"><p>Loading . . .</td>')
+        $('#results').append('<section id="' + source + '"><p>Loading . . .</p></section>')
         search(source, query)
       })
     }
