@@ -1,11 +1,47 @@
+body {
+  background-color: rgb(246, 246, 246);
+}
+
+#barre {
+  background-color: rgb(240, 240, 240);
+  border: medium none;
+  font-family: Gudea;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(155, 155, 155);
+  width: 150px;
+  height: 30px;
+  vertical-align: middle;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  box-shadow: rgb(136, 136, 136) 0 1px 7px 0 inset;
+}
+
+#results {
+  border: 1px solid rgb(203, 203, 203);
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 2px 7px rgb(219, 219, 219);
+}
+
+.source {
+  color: rgb(100, 100, 100);
+  font: 13px/36px GudeaBold;
+  font-size: 20px;
+}
+
 .titre {
+  color: rgb(20, 20, 20);
+  font: 16px/18px TinosBold;
   font-weight: bold;
   text-decoration: underline;
-  color: rgb(55, 55, 55);
 }
 
 .auteur {
   color: rgb(121, 121, 121);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
 }
 
 .importer {
@@ -16,8 +52,4 @@
 
 .importer:hover {
   background: url('import2.png');
-}
-
-#results {
-  background-color: rgb(246, 246, 246);
 }

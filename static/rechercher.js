@@ -13,10 +13,10 @@ function search(source, query) {
       items.push(elem + '</aside></article>')
     })
     if (items.length > 0) {
-      $('#' + source).html('<h2>Results from ' + data.source + ' (' + items.length + ')</h2>')
+      $('#' + source).html('<h2 id="source">Results from ' + data.source + ' (' + items.length + ')</h2>')
       $('#' + source).append(items.join('\n'))
     } else
-      $('#' + source).html('<p>Nothing found :-(</p>')
+      $('#' + source).html('<p><strong>' + data.source + ':</strong> Nothing found :-(</p>')
   })
 }
 
