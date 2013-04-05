@@ -1,4 +1,5 @@
-from bottle import route, redirect, static_file, run
+from bottle import route, redirect, static_file, request, run
+from importlib import import_module
 
 @route('/')
 def index():
@@ -8,23 +9,19 @@ def index():
 def static(fichier):
   return static_file(fichier, root='static')
 
-from gutenberg import meta as g_meta
-from manybooks import meta as m_meta
+sources = {
+  'gutenberg': import_module('gutenberg'),
+  'manybooks': import_module('manybooks')}
 
-@route('/meta/:query')
-def meta(query):
-  reply = {}
-  reply['gutenberg'] = g_meta(query)
-  reply['manybooks'] = m_meta(query)
-  return reply
-
-from gutenberg import text as g_text
-from manybooks import text as m_text
+@route('/meta/:source/:query')
+def meta(source, query):
+  if source in sources:
+    return {'results': sources[source].meta(query)}
 
 @route('/text/:source/:ident')
 def text(source, ident):
-  return {'gutenberg': g_text,
-          'manybooks': m_text}[source](ident)
+  if source in sources:
+    return sources[source].text(ident)
 
 if __name__ == '__main__':
   run(host='localhost', port=8080, debug=True, reloader=True)
