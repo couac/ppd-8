@@ -13,7 +13,7 @@ function search(source, query) {
       items.push(elem + '</aside></article>')
     })
     if (items.length > 0) {
-      $('#' + source).html('<h2 id="source">Results from ' + data.source + ' (' + items.length + ')</h2>')
+      $('#' + source).html('<h2 class="source">Results from ' + data.source + ' (' + items.length + ')</h2>')
       $('#' + source).append(items.join('\n'))
     } else
       $('#' + source).html('<p><strong>' + data.source + ':</strong> Nothing found :-(</p>')
@@ -25,9 +25,12 @@ $(function () {
     var query = $('#barre').val()
     if (query.length > 0) {
       $('#results').empty()
-      $('input[type="checkbox"]:checked').each(function () {
-        source = $(this).attr('name')
-        $('#results').append('<section id="' + source + '">' +
+      $('input[type="checkbox"]:checked').each(function (index) {
+        var source = $(this).attr('name')
+        var side = 'gauche'
+        if (index === 1)
+          side = 'droite'
+        $('#results').append('<section id="' + source + '" class="' + side + '">' +
           '<p>Loading from ' + $(this).next().text() + ' . . .</p></section>')
         search(source, query)
       })

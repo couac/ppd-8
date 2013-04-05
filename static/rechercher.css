@@ -17,18 +17,32 @@ body {
   border-bottom-left-radius: 14px;
   border-bottom-right-radius: 14px;
   box-shadow: rgb(136, 136, 136) 0 1px 7px 0 inset;
+  text-indent: 10px;
 }
 
 #results {
   border: 1px solid rgb(203, 203, 203);
   border-radius: 5px 5px 5px 5px;
   box-shadow: 0 2px 7px rgb(219, 219, 219);
+  padding-bottom: 20px;
+  overflow: auto;
+}
+
+.gauche {
+  float: left;
+  width: 50%;
+}
+
+.droite {
+  float: right;
+  width: 50%;
 }
 
 .source {
   color: rgb(100, 100, 100);
   font: 13px/36px GudeaBold;
   font-size: 20px;
+  margin-left: 10px;
 }
 
 .titre {
@@ -42,6 +56,12 @@ body {
   color: rgb(121, 121, 121);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
+  margin-left: 5px;
+}
+
+aside {
+  width: 27px;
+  height: 27px;
 }
 
 .importer {
